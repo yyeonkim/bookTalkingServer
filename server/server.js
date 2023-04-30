@@ -1,8 +1,8 @@
 const express = require("express");
 const app = express();
-const test = require("./router/test");
+const chatRouter = require("./router/chatRouter");
 
-app.use("/api", test);
+app.use("/chat", chatRouter);
 
 const port = 5000;
 app.listen(port, () => console.log(`Listening on port ${port}`));
