@@ -9,7 +9,7 @@ const configuration = new Configuration({
 });
 const openai = new OpenAIApi(configuration);
 
-router.get("/start", async (req, res) => {
+router.get("/chat/start", async (req, res) => {
   const completion = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
     messages: [
@@ -24,14 +24,14 @@ router.get("/start", async (req, res) => {
   res.send(completion.data.choices[0].message);
 });
 
-router.post("/send", async (req, res) => {
+router.post("/chat/send", async (req, res) => {
   const content = req.body.content;
   const completion = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
     messages: [
       {
         role: "user",
-        content: content,
+        content,
       },
     ],
   });
