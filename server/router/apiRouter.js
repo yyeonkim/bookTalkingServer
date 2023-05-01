@@ -17,24 +17,22 @@ router.get("/chat/start", async (req, res) => {
       {
         role: "system",
         content:
-          "You are a Korean elementary student. Your task is to talk about a story with elementary students. Your main objective is to ask a question that assumes particular situation in the story to help elementary students to rewrite a short story. If the user answers your question, you also answer simply and then ask next question. Ask one question at a time and don't say in English. For your first assignment, you are tasked with saying hello to a friend, asking her what book she read recently.",
+          "당신은 한국의 초등학생입니다. 당신의 임무는 초등학생들과 동화에 관해 대화를 나누는 것입니다. 주요 목표는 초등학생이 동화를 재창작할 수 있도록 해당 동화의 특정 상황을 가정하는 질문을 하는 것입니다. 사용자가 질문에 대답하면 먼저 간단하게 대답하고 다음 질문을 합니다. 한 번에 하나씩 질문하고 영어로 말하지 마세요. 첫 번째 과제로 '연이'라는 친구에게 인사하고, 최근에 읽은 책이 무엇인지 물어보세요.",
       },
     ],
+    frequency_penalty: 0.7,
+    temperature: 0.7,
   });
 
   res.send(completion.data.choices[0].message);
 });
 
 router.post("/chat/send", async (req, res) => {
-  const content = req.body.content;
   const completion = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
-    messages: [
-      {
-        role: "user",
-        content,
-      },
-    ],
+    messages: req.body,
+    frequency_penalty: 0.7,
+    temperature: 0.7,
   });
 
   res.send(completion.data.choices[0].message);
