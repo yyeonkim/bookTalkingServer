@@ -34,4 +34,19 @@ router.post("/chat/send", async (req, res) => {
   res.send(completion.data.choices[0].message);
 });
 
+router.post("/chat/summarize", async (req, res) => {
+  const completion = await openai.createChatCompletion({
+    model: "gpt-3.5-turbo",
+    messages: [
+      ...req.body,
+      {
+        role: "user",
+        content: "우리 대화를 요약해서 짧은 동화로 만들어줘.",
+      },
+    ],
+  });
+
+  res.send(completion.data.choices[0].message);
+});
+
 module.exports = router;
