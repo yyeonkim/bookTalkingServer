@@ -56,7 +56,7 @@ router.post("/chat/summarize", async (req, res) => {
       ...req.body,
       {
         role: "user",
-        content: "우리 대화를 요약해서 동화로 만들어줘.",
+        content: "우리 대화를 요약해서 동화로 만들어줘. 부연 설명 하지 마.",
       },
     ],
     ...createSettings,
@@ -69,10 +69,9 @@ router.post("/chat/keyword", async (req, res) => {
   // 요약한 동화를 body로 보낸다.
   const completion = await openai.createChatCompletion({
     messages: [
-      req.body,
       {
         role: "user",
-        content: `${req.body}\n위의 이야기에서 다섯 개의 키워드를 영어로 알려줘. 아래처럼 리스트 형태로 알려줘.\nanswer: [word1, word2, word3, word4, word5]`,
+        content: `${req.body}\n\n위 이야기에서 다섯 개의 키워드를 영어로 알려줘. 아래처럼 리스트 형태로 알려줘.\nanswer: [word1, word2, word3, word4, word5]`,
       },
     ],
     ...keywordSettings,
