@@ -31,6 +31,13 @@ const keywordSettings = {
   presence_penalty: 0,
   frequency_penalty: 0.8,
 };
+const translateSettings = {
+  model: "gpt-3.5-turbo",
+  temperature: 0.3,
+  top_p: 1,
+  presence_penalty: 0,
+  frequency_penalty: 0,
+};
 
 router.post("/chat/start", async (req, res) => {
   const completion = await openai.createChatCompletion({
@@ -75,6 +82,21 @@ router.post("/chat/keyword", async (req, res) => {
       },
     ],
     ...keywordSettings,
+  });
+
+  res.send(completion.data.choices[0].message);
+});
+
+router.get("/chat/translate", async (req, res) => {
+  // 영어 단어를 한글로 변환
+  const completion = await openai.createChatCompletion({
+    messages: [
+      {
+        role: "user",
+        content: `${req.query.keyword}을 한글 단어로 알려줘. 부연 설명은 하지 마.`,
+      },
+    ],
+    ...translateSettings,
   });
 
   res.send(completion.data.choices[0].message);
