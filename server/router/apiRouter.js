@@ -73,7 +73,6 @@ router.post("/chat/summarize", async (req, res) => {
 });
 
 router.post("/chat/keyword", async (req, res) => {
-  // 요약한 동화를 body로 보낸다.
   const completion = await openai.createChatCompletion({
     messages: req.body,
     ...keywordSettings,
