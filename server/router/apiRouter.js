@@ -75,12 +75,7 @@ router.post("/chat/summarize", async (req, res) => {
 router.post("/chat/keyword", async (req, res) => {
   // 요약한 동화를 body로 보낸다.
   const completion = await openai.createChatCompletion({
-    messages: [
-      {
-        role: "user",
-        content: `${req.body.story}\n\n위 이야기에서 다섯 개의 키워드를 영어로 알려줘. 아래처럼 리스트 형태로 알려줘.\nanswer: [word1, word2, word3, word4, word5]`,
-      },
-    ],
+    messages: req.body,
     ...keywordSettings,
   });
 
@@ -93,7 +88,7 @@ router.get("/chat/translate", async (req, res) => {
     messages: [
       {
         role: "user",
-        content: `${req.query.keyword}을 한글 단어로 알려줘. 부연 설명은 하지 마.`,
+        content: `"${req.query.keyword}"을 한글 단어로 알려줘. 부연 설명은 하지 마.`,
       },
     ],
     ...translateSettings,
