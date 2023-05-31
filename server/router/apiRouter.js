@@ -63,7 +63,8 @@ router.post("/chat/summarize", async (req, res) => {
       ...req.body,
       {
         role: "user",
-        content: "우리 대화를 요약해서 300자 정도의 한글 동화로 만들어줘.",
+        content:
+          "우리 대화를 요약해서 300자 정도의 한글 동화로 만들어줘. 부연 설명은 하지 마.",
       },
     ],
     ...createSettings,
