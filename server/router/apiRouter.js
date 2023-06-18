@@ -15,7 +15,6 @@ const chatSettings = {
   top_p: 1,
   presence_penalty: 0,
   frequency_penalty: 0.5,
-  n: 3,
 };
 const createSettings = {
   model: "gpt-3.5-turbo",
@@ -45,7 +44,7 @@ router.post("/chat/start", async (req, res) => {
     ...chatSettings,
   });
 
-  res.send(completion.data.choices[Math.floor(Math.random(3))].message);
+  res.send(completion.data.choices[0].message);
 });
 
 router.post("/chat/send", async (req, res) => {
@@ -54,7 +53,7 @@ router.post("/chat/send", async (req, res) => {
     ...chatSettings,
   });
 
-  res.send(completion.data.choices[Math.floor(Math.random(3))].message);
+  res.send(completion.data.choices[0].message);
 });
 
 router.post("/chat/summarize", async (req, res) => {
